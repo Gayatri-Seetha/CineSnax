@@ -2,6 +2,7 @@
 
 CineSnax is a lightweight, offline-friendly web-based application designed to help cinema snack counters manage orders, track stock, and monitor earnings efficiently. This tool is ideal for staff to quickly process food orders, generate bills, and maintain inventory without requiring a backend server.
 
+🔗 **Live Demo**: [Visit CineSnax](https://gayatri-seetha.github.io/CineSnax-Kiosk/)
 
 ## 🚀 Features
 
