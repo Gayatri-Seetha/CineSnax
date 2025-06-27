@@ -53,7 +53,6 @@ CineSnax is a lightweight, offline-friendly web-based application designed to he
 # 👩‍💻 Developed By
 
 **Sri Gayatri Seetha**
-<pre>
 
 B.Tech CSE | Student | Aspiring Software Developer
-</pre>
+
