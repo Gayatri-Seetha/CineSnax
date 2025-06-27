@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineSnax Orders</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fffaf2;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #e63236;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background-color: #ff3b3f;
+      color: white;
+    }
+    .btn {
+      padding: 8px 16px;
+      background: #ff3b3f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #e02a2d;
+    }
+    .submit-section {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .home-btn {
+      padding: 15px 30px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      background: #444;
+    }
+    .home-btn:hover {
+      background: #222;
+    }
+    .summary-box {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #444;
+    }
+    .reset-btn {
+      background-color: #444;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📜 Customer Order History</h1>
+
+  <table id="ordersTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Bill</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="summary-box">
+    <p>📅 Today's Earnings: <strong id="todayEarnings">₹ 0</strong></p>
+    <p>📆 Monthly Earnings: <strong id="monthEarnings">₹ 0</strong></p>
+    <button class="btn reset-btn" onclick="resetEarnings()">Reset Earnings</button>
+  </div>
+
+  <div class="submit-section">
+    <button class="btn" onclick="location.href='reset.html'">🔄 Reset All</button>
+    <a href="index.html" class="home-btn">🏠 Home</a>
+  </div>
+
+  <script>
+    const orders = JSON.parse(localStorage.getItem('orderHistory')) || [];
+    const tbody = document.querySelector('#ordersTable tbody');
+    let todayTotal = 0;
+    let monthTotal = 0;
+
+    const today = new Date();
+    const todayStr = today.toLocaleDateString();
+    const thisMonth = today.getMonth();
+
+    const seenBills = new Set();
+
+    orders.forEach(order => {
+      if (seenBills.has(order.billUrl)) return;
+      seenBills.add(order.billUrl);
+
+      const orderDate = new Date(order.date);
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${order.date}</td>
+        <td>${order.time}</td>
+        <td>${order.name}</td>
+        <td>${order.mobile}</td>
+        <td><button class="btn" onclick="window.open('${order.billUrl}', '_blank')">View Bill</button></td>
+      `;
+      tbody.appendChild(row);
+
+      const urlParams = new URLSearchParams(order.billUrl.split('?')[1]);
+      let total = 0;
+      const prices = {
+        popcorn_salted: 120, popcorn_cheese: 150, popcorn_caramel: 150,
+        butter: 30, fries_salted: 150, fries_peri: 180,
+        bev_thumbsup: 60, bev_cocacola: 60, bev_sprite: 60,
+        coffee_hot: 120, coffee_cold: 130,
+        nuggets_veg: 130, nuggets_nonveg: 160
+      };
+
+      for (let key in prices) {
+        const qty = parseInt(urlParams.get(key)) || 0;
+        total += prices[key] * qty;
+      }
+
+      if (urlParams.get('popcorn_butter')) {
+        total += prices.butter;
+      }
+
+      total += total * 0.18; // 18% GST
+
+      if (order.date === todayStr) {
+        todayTotal += total;
+      }
+      if (orderDate.getMonth() === thisMonth) {
+        monthTotal += total;
+      }
+    });
+
+    document.getElementById('todayEarnings').textContent = '₹ ' + todayTotal.toFixed(2);
+    document.getElementById('monthEarnings').textContent = '₹ ' + monthTotal.toFixed(2);
+
+    function resetEarnings() {
+      if (confirm("Are you sure you want to reset today's and month's earnings display?")) {
+        document.getElementById('todayEarnings').textContent = '₹ 0';
+        document.getElementById('monthEarnings').textContent = '₹ 0';
+        alert("Earnings display reset (note: order data is still preserved).");
+      }
+    }
+  </script>
+</body>
+</html>

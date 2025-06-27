@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic page setup -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to CineSnax</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* Page background and center alignment */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('images/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* Welcome box styling */
+    .welcome-box {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    /* Main heading style */
+    h1 {
+      font-size: 3em;
+      color: #78d0b1;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    /* Button styles */
+    .btn {
+      margin: 10px;
+      padding: 15px 30px;
+      background-color: #ff3b3f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background-color: #e63236;
+    }
+
+    /* Fullscreen overlay for login popup */
+    .login-popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* dim background */
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999; /* ensures it's above all */
+    }
+
+    /* Login box content */
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 300px;
+    }
+
+    .login-box input {
+      width: 90%;
+      padding: 8px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background-color: #ff3b3f;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #e63236;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Welcome screen -->
+  <div class="welcome-box">
+    <h1><strong>CineSnax</strong></h1>
+    <h2>Welcome to CineSnax!</h2>
+    <div>
+      <!-- Customer button links directly -->
+      <a href="customer.html" class="btn">Customer</a>
+
+      <!-- Staff button triggers login popup -->
+      <button class="btn" onclick="showLogin()">Staff</button>
+    </div>
+  </div>
+
+  <!-- Staff Login Modal Popup -->
+  <div class="login-popup" id="loginPopup">
+    <div class="login-box">
+      <h2>Staff Login</h2>
+      <!-- Username and password fields -->
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <!-- Login button triggers JS validation -->
+      <button onclick="checkLogin()">Login</button>
+    </div>
+  </div>
+
+  <script>
+    // Show login popup
+    function showLogin() {
+      document.getElementById('loginPopup').style.display = 'flex';
+    }
+
+    // Validate login and redirect to staff.html
+    function checkLogin() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+
+      // Predefined users and passwords
+      const validUsers = {
+        gayatri: "gayatri@12",
+        seetha: "seetha@1205"
+      };
+
+      // Login success: redirect to staff.html
+      if (validUsers[user] && validUsers[user] === pass) {
+        alert("Login successful!");
+        location.href = "staff.html";
+      } else {
+        alert("Invalid username or password.");
+      }
+    }
+
+    // Optional: close popup if user clicks outside login box
+    window.addEventListener("click", function(e) {
+      const popup = document.getElementById("loginPopup");
+      if (e.target === popup) popup.style.display = "none";
+    });
+  </script>
+</body>
+</html>

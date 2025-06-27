@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta setup for character encoding and responsiveness -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineSnax Staff Dashboard</title>
+
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+  <!-- CSS Styling -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      padding: 40px;
+      background: #ffd100; /* Yellow theme */
+      scroll-behavior: smooth;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff3b3f; /* Brand color */
+    }
+
+    .dashboard {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    /* Section visibility controlled with class */
+    .section {
+      margin-bottom: 30px;
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section h2 {
+      color: #333;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .data-box {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 25px;
+      font-size: 1em;
+      background-color: #ff3b3f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #e63236;
+    }
+
+    .input-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .input-box label {
+      width: 120px;
+    }
+
+    .input-box input {
+      width: 80px;
+      padding: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Title -->
+  <h1>CineSnax Staff Dashboard</h1>
+
+  <!-- Dashboard Container -->
+  <div class="dashboard">
+
+    <!-- Navigation Buttons -->
+    <div class="buttons">
+      <button class="btn" onclick="toggleSection('stockFormSection')">Add/Update Stock</button>
+      <button class="btn" onclick="scrollToStockAvailable()">Stock Available</button>
+      <button class="btn" onclick="clearStock()">Clear Stock</button>
+      <button class="btn" onclick="location.href='orders.html'">Orders</button>
+      <button class="btn" onclick="location.href='index.html'">Home</button>
+    </div>
+
+    <!-- Stock Management Form -->
+    <div id="stockFormSection" class="section">
+      <h2>📦 Stock Management</h2>
+      <form id="stockForm">
+        <!-- Input for each category -->
+        <div class="input-box"><label>Popcorn:</label><input type="number" name="popcorn" value="0"></div>
+        <div class="input-box"><label>Beverages:</label><input type="number" name="beverages" value="0"></div>
+        <div class="input-box"><label>Fries:</label><input type="number" name="fries" value="0"></div>
+        <div class="input-box"><label>Coffee:</label><input type="number" name="coffee" value="0"></div>
+        <div class="input-box"><label>Nuggets:</label><input type="number" name="nuggets" value="0"></div>
+        <button type="button" class="btn" onclick="updateStock()">Save Stock</button>
+      </form>
+    </div>
+
+    <!-- Earnings Display Section -->
+    <div class="section active">
+      <h2>📅 Earnings Summary</h2>
+      <div class="data-box">Today's Earnings: <strong id="todayEarnings">₹ 0</strong></div>
+      <div class="data-box">Month's Earnings (1st to 31st): <strong id="monthEarnings">₹ 0</strong></div>
+    </div>
+
+    <!-- Stock Available Section -->
+    <div class="section active" id="stockAvailableSection">
+      <h2>📊 Stock Available</h2>
+      <div class="data-box">Popcorn: <strong id="stockPopcorn">0</strong> units</div>
+      <div class="data-box">Beverages: <strong id="stockBeverages">0</strong> units</div>
+      <div class="data-box">Fries: <strong id="stockFries">0</strong> units</div>
+      <div class="data-box">Coffee: <strong id="stockCoffee">0</strong> units</div>
+      <div class="data-box">Nuggets: <strong id="stockNuggets">0</strong> units</div>
+    </div>
+  </div>
+
+  <!-- JavaScript for Dashboard Functionality -->
+  <script>
+    // Show/hide a section
+    function toggleSection(id) {
+      const section = document.getElementById(id);
+      section.classList.toggle('active');
+    }
+
+    // Scroll smoothly to Stock Available section
+    function scrollToStockAvailable() {
+      document.getElementById('stockAvailableSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Save updated stock to localStorage
+    function updateStock() {
+      const form = document.forms['stockForm'];
+      localStorage.setItem('stock_popcorn', form.popcorn.value);
+      localStorage.setItem('stock_beverages', form.beverages.value);
+      localStorage.setItem('stock_fries', form.fries.value);
+      localStorage.setItem('stock_coffee', form.coffee.value);
+      localStorage.setItem('stock_nuggets', form.nuggets.value);
+      showStock(); // update display
+      alert('Stock updated!');
+    }
+
+    // Load and display stock values
+    function showStock() {
+      document.getElementById('stockPopcorn').textContent = localStorage.getItem('stock_popcorn') || 0;
+      document.getElementById('stockBeverages').textContent = localStorage.getItem('stock_beverages') || 0;
+      document.getElementById('stockFries').textContent = localStorage.getItem('stock_fries') || 0;
+      document.getElementById('stockCoffee').textContent = localStorage.getItem('stock_coffee') || 0;
+      document.getElementById('stockNuggets').textContent = localStorage.getItem('stock_nuggets') || 0;
+    }
+
+    // Reset all stock to zero
+    function clearStock() {
+      localStorage.setItem('stock_popcorn', 0);
+      localStorage.setItem('stock_beverages', 0);
+      localStorage.setItem('stock_fries', 0);
+      localStorage.setItem('stock_coffee', 0);
+      localStorage.setItem('stock_nuggets', 0);
+      showStock(); // update display
+      alert('All stock reset to zero!');
+    }
+
+    // Calculate earnings and adjust undeducted stock
+    function calculateEarnings() {
+      const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+      const seen = new Set(); // avoid duplicates
+      let todayEarnings = 0;
+      let monthEarnings = 0;
+      const today = new Date().toLocaleDateString();
+      const thisMonth = new Date().getMonth();
+
+      for (const order of orders) {
+        if (seen.has(order.billUrl)) continue;
+        seen.add(order.billUrl);
+
+        // Parse order items from URL
+        const urlParams = new URLSearchParams(order.billUrl.split('?')[1]);
+        let total = 0;
+        const prices = {
+          popcorn_salted: 120, popcorn_cheese: 150, popcorn_caramel: 150,
+          butter: 30, fries_salted: 150, fries_peri: 180,
+          bev_thumbsup: 60, bev_cocacola: 60, bev_sprite: 60,
+          coffee_hot: 120, coffee_cold: 130,
+          nuggets_veg: 130, nuggets_nonveg: 160
+        };
+
+        const usageMap = {
+          popcorn: 0, beverages: 0, fries: 0, coffee: 0, nuggets: 0
+        };
+
+        // Calculate order total
+        for (let item in prices) {
+          const qty = parseInt(urlParams.get(item)) || 0;
+          total += qty * prices[item];
+
+          // Track stock deduction per category
+          if (item.startsWith('popcorn_')) usageMap.popcorn += qty;
+          if (item.startsWith('bev_')) usageMap.beverages += qty;
+          if (item.startsWith('fries_')) usageMap.fries += qty;
+          if (item.startsWith('coffee_')) usageMap.coffee += qty;
+          if (item.startsWith('nuggets_')) usageMap.nuggets += qty;
+        }
+
+        // Add butter addon
+        if (urlParams.get('popcorn_butter')) total += prices.butter;
+
+        // Add GST
+        total += total * 0.18;
+
+        // Match order to today or current month
+        const orderDate = new Date(order.date);
+        if (order.date === today) todayEarnings += total;
+        if (orderDate.getMonth() === thisMonth) monthEarnings += total;
+
+        // Deduct stock if not done already
+        if (!order.stockDeducted) {
+          for (let category in usageMap) {
+            const current = parseInt(localStorage.getItem('stock_' + category)) || 0;
+            localStorage.setItem('stock_' + category, Math.max(0, current - usageMap[category]));
+          }
+          order.stockDeducted = true;
+        }
+      }
+
+      // Save updated orders with stock deduction flags
+      localStorage.setItem('orderHistory', JSON.stringify(orders));
+
+      // Update earnings display
+      document.getElementById('todayEarnings').textContent = '₹ ' + todayEarnings.toFixed(2);
+      document.getElementById('monthEarnings').textContent = '₹ ' + monthEarnings.toFixed(2);
+    }
+
+    // Initialize dashboard on load
+    window.onload = () => {
+      showStock();
+      calculateEarnings();
+    };
+  </script>
+</body>
+</html>
