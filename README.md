@@ -4,7 +4,12 @@ CineSnax is a lightweight, offline-friendly web-based application designed to he
 
 🔗 **Live Demo**: [Visit CineSnax](https://gayatri-seetha.github.io/CineSnax/)
 
-## 🚀 Features
+**Staff login:**
+User name: seetha
+password: seetha@1205
+
+
+# 🚀 Features
 
 * ✅ Order Billing – Generate instant bills for selected snacks and drinks with GST included.
 * 📦 Stock Management – Add, update, or reset current stock levels via a staff dashboard.
