@@ -15,7 +15,7 @@ CineSnax is a lightweight, offline-friendly web-based application designed to he
 
 # 📂 Project Structure
 <pre>
-📁 CineSnax-Kiosk
+📁 CineSnax
 ├── index.html           # Customer/Staff login page
 ├── customer.html        # Customer ordering interface
 ├── bill.html            # Bill summary with price breakdown
