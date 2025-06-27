@@ -21,6 +21,7 @@ CineSnax is a lightweight, offline-friendly web-based application designed to he
 ├── staff.html           # Staff dashboard (manage stock, view earnings)
 ├── orders.html          # Order history (view past orders, earnings)
 ├── reset.html           # Reset confirmation page (clear all local data)
+├── Images               # Product images (popcorn, fries, beverages, etc.)
 └── README.md            # Project documentation (description, usage, credits)
 </pre>
 
