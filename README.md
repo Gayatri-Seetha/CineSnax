@@ -13,7 +13,7 @@ CineSnax is a lightweight, offline-friendly web-based application designed to he
 * 🧹 Reset Control – One-click reset of all stored data including stock, earnings, and orders. It is controlled only by me.
 
 # 📂 Project Structure
-
+<pre>
 📁 CineSnax-Kiosk
 ├── index.html           # Customer/Staff login page
 ├── customer.html        # Customer ordering interface
@@ -22,7 +22,7 @@ CineSnax is a lightweight, offline-friendly web-based application designed to he
 ├── orders.html          # Order history (view past orders, earnings)
 ├── reset.html           # Reset confirmation page (clear all local data)
 └── README.md            # Project documentation (description, usage, credits)
-
+</pre>
 
 
 📦 Tech Stack
