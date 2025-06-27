@@ -14,12 +14,15 @@ CineSnax is a lightweight, offline-friendly web-based application designed to he
 
 # 📂 Project Structure
 
-├── index.html         # Main customer ordering interface
-├── bill.html          # Bill summary page
-├── staff.html         # Staff dashboard for stock and earnings
-├── orders.html        # Order history and bill links
-├── reset.html         # Reset confirmation page
-├── assets/            # (Optional) Folder for images, icons, CSS
+📁 CineSnax-Kiosk
+├── index.html           # Customer/Staff login page
+├── customer.html        # Customer ordering interface
+├── bill.html            # Bill summary with price breakdown
+├── staff.html           # Staff dashboard (manage stock, view earnings)
+├── orders.html          # Order history (view past orders, earnings)
+├── reset.html           # Reset confirmation page (clear all local data)
+└── README.md            # Project documentation (description, usage, credits)
+
 
 
 📦 Tech Stack
